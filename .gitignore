@@ -1,0 +1,14 @@
+*.pyc
+.DS_Store
+configs.ini
+
+__pycache__
+.env
+.idea
+.venv
+.vscode
+nbproject
+env
+venv
+
+.lh
