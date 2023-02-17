@@ -37,6 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Tools
+    'widget_tweaks',
+
+    # My apps
     'manage'
 ]
 
@@ -122,3 +127,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_URL = '/manage/auth/login/'
+LOGIN_REDIRECT_URL = '/manage/dashboard/'
+LOGOUT_REDIRECT_URL = '/manage/auth/logout/'
