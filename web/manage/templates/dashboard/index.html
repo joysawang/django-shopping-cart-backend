@@ -4,8 +4,20 @@
 <div class="col-12">
     <div class="card">
         <div class="card-header">
-
+            <a id="btnPrint" class="btn btn-default">Print It!!!</a>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js_custom %}
+<script>
+    document.getElementById("btnPrint").addEventListener("click", function (event) {
+        event.preventDefault();
+        var commandsToPrint = "<!DOCTYPE html><html><head><meta name='viewport' content='width=device-width, initial-scale=1'></head><body><style>table{width: 100%;}table td:last-child{text-align: right;}</style><table><tbody><tr><td>1 ชาเขียว</td><td>50.00</td></tr><tr><td>1. อิชิตัน เคียวโฮวิตามิน</td><td>30.00</td></tr><tr><td>1. อิชิตัน เคียวโฮวิตามิน</td><td>30.00</td></tr><tr><td>1. อิชิตัน เคียวโฮวิตามิน</td><td>30.00</td></tr><tr><td>ยอดสุทธิ 4 ชิ้น</td><td>140.00</td></tr></tbody></table><b>บิลนี้ประหยัด 12.00</b></body></html>";
+        var textEncoded = encodeURIComponent(commandsToPrint);
+        // window.location.href = "intent://?text=" + textEncoded + "#Intent;scheme=posquickprinter;package=com.posquickprinter;end;";
+        window.location.href = "app://com.posquickprinter/print?text=" + commandsToPrint + "&return_uri=" + encodeURIComponent("googlechrome://")
+    });
+</script>
 {% endblock %}

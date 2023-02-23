@@ -1,4 +1,4 @@
-{% load static %}
+{% load i18n static %}
 
 <!DOCTYPE html>
 
@@ -52,12 +52,31 @@
                     </a>
                     <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <li class="user-footer">
-                            <a class="btn btn-default btn-flat float-right  btn-block " href="{% url 'manage:auth/logout' %}">
+                            <a class="btn btn-default btn-flat float-right  btn-block "
+                                href="{% url 'manage:auth/logout' %}">
                                 <i class="fa fa-fw fa-power-off text-red"></i>
-                                Log Out
+                                {% trans 'Logout' %}
                             </a>
                         </li>
                     </ul>
+                </li>
+                <li class="nav-item dropdown user-menu">
+                    <form class="form-inline" action="{% url 'manage:set_language' %}" method="post">
+                        {% csrf_token %}
+                        <input name="next" type="hidden" value="{{ request.build_absolute_uri }}">
+                        <div class="form-group">
+                            <select class="form-control" name="language" onchange="this.form.submit();">
+                                {% get_current_language as LANGUAGE_CODE %}
+                                {% get_available_languages as LANGUAGES %}
+                                {% get_language_info_list for LANGUAGES as languages %}
+                                {% for language in languages %}
+                                <option value="{{ language.code }}" {% if language.code == LANGUAGE_CODE %}selected{% endif %}>
+                                    {{ language.name_local }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </form>
                 </li>
             </ul>
         </nav>
@@ -147,13 +166,10 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Dashboard</h1>
+                            <h1 class="m-0">{% block content_header %}{% endblock %}</h1>
                         </div><!-- /.col -->
                         <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Dashboard v1</li>
-                            </ol>
+                            {% block breadcrumb %}{% endblock %}
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->

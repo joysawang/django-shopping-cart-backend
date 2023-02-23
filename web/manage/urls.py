@@ -1,6 +1,7 @@
-from django.urls import path
+from django.urls import include, path
+from django.views.i18n import set_language
 
-from .views import product, dashboard
+from .views import product, dashboard, category
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import views as auth_views
 
@@ -25,6 +26,15 @@ urlpatterns = [
         template_name='auth/forgot_password_complete.html'
     ), name='user/forgot_password_complete'),
 
+    #dashbaord
     path('dashboard/', dashboard.DashboardIndexView.as_view(), name='dashboard/index'),
-    path('products/', product.ProductIndexView.as_view(), name='products/index')
+
+    # category
+    path('categories/', category.CategoryIndexView.as_view(), name='categories/index'),
+    path('categories/create/', category.CategoryCreateView.as_view(), name='categories/create'),
+
+    # product
+    path('products/', product.ProductIndexView.as_view(), name='products/index'),
+
+    path('i18n/', include('django.conf.urls.i18n'))
 ]

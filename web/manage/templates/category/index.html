@@ -1,0 +1,53 @@
+{% extends 'layouts/main.html' %}
+
+{% load i18n %}
+
+{% block content_header %}
+{% trans 'Categories' %}
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="{% url 'manage:dashboard/index' %}">{% trans 'Home' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Categories' %}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="col-12">
+    <div class="card">
+        <div class="card-header">
+            <a class="btn btn-success" href="{% url 'manage:categories/create' %}">{% trans 'Add' %}</a>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>{% trans 'Name' %}</th>
+                        <th>{% trans 'Main Category' %}</th>
+                        <th>{% trans 'Status' %}</th>
+                        <th>{% trans 'Created At' %}</th>
+                        <th>{% trans 'Updated At' %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for object in page_obj %}
+                    <tr>
+                        <td>{{ object.id }}</td>
+                        <td>{{ object.name }}</td>
+                        <td>{{ object.get_parent_name }}</td>
+                        <td>{{ object.get_status_name }}</td>
+                        <td>{{ object.created_at }}</td>
+                        <td>{{ object.updated_at }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
+            {% include 'components/pagination.html' %}
+        </div>
+    </div>
+</div>
+{% endblock %}

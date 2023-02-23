@@ -1,0 +1,33 @@
+{% extends 'layouts/main.html' %}
+
+{% load i18n %}
+
+{% block content_header %}
+{% trans 'Categories' %}
+{% endblock %}
+
+{% block breadcrumb %}
+<ol class="breadcrumb float-sm-right">
+    <li class="breadcrumb-item"><a href="{% url 'manage:dashboard/index' %}">{% trans 'Home' %}</a></li>
+    <li class="breadcrumb-item active">{% trans 'Categories' %}</li>
+</ol>
+{% endblock %}
+
+{% block content %}
+<div class="col-12">
+    <div class="card card-default">
+
+        <form method="POST" accept-charset="UTF-8">
+            {% csrf_token %}
+
+            <div class="card-body">
+                {% include "category/form.html" %}
+            </div>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">บันทึก</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
